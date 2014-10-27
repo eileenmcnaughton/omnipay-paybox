@@ -11,7 +11,7 @@
         "payment",
         "purchase"
     ],
-    "homepage": "https://github.com/fuzion/omnipay-paybox",
+    "homepage": "https://github.com/eileenmcnaughton/omnipay-paybox",
     "license": "MIT",
     "authors": [
         {
