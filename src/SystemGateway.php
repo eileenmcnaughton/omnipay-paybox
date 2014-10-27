@@ -1,7 +1,7 @@
 <?php
 namespace Omnipay\Paybox;
 
-use Omnipay\Tests\GatewayTestCase;
+use Omnipay\Common\AbstractGateway;
 
 /**
  * Paybox System Gateway
@@ -34,13 +34,13 @@ class SystemGateway extends AbstractGateway
      */
     public function authorize(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\PayboxSystem\Message\AuthorizeRequest', $parameters);
+        return $this->createRequest('\Omnipay\Paybox\Message\AuthorizeRequest', $parameters);
     }
 
     /**
      *
      * @param array $parameters
-     * @return \Omnipay\PayboxSystem\Message\CaptureRequest
+     * @return \Omnipay\Paybox\Message\CaptureRequest
      */
     public function capture(array $parameters = array())
     {
