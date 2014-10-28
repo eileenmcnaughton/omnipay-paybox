@@ -12,6 +12,8 @@ use Omnipay\Common\Message\RedirectResponseInterface;
  */
 class Response extends AbstractResponse implements RedirectResponseInterface
 {
+    public $endpoint = 'https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi';
+
     public function __construct(RequestInterface $request, $data)
     {
         $this->request = $request;
@@ -31,17 +33,17 @@ class Response extends AbstractResponse implements RedirectResponseInterface
 
     public function isTransparentRedirect()
     {
-      return TRUE;
+      return FALSE;
     }
 
     public function getRedirectUrl()
     {
-        return $this->redirectUrl;
+      return $this->endpoint .'?'.http_build_query($this->data);
     }
 
     public function getRedirectMethod()
     {
-        return 'POST';
+        return 'GET';
     }
 
     public function getRedirectData()

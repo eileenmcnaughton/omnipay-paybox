@@ -9,7 +9,7 @@ use Omnipay\Common\AbstractGateway;
  * @link http://www1.paybox.com/wp-content/uploads/2014/06/ManuelIntegrationPayboxDirect_V6.3_EN.pdf
  * @link http://www1.paybox.com/wp-content/uploads/2014/02/PayboxTestParameters_V6.2_EN.pdf
  */
-class SystemGateway extends AbstractGateway
+class DirectGateway extends AbstractGateway
 {
 
     public function getName()

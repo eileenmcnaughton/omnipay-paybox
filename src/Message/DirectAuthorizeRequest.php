@@ -2,7 +2,7 @@
 
 namespace Omnipay\Paybox\Message;
 
-use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\Paybox\Message\AbstractRequest;
 /**
  * Cybersource Authorize Request
  */
@@ -63,20 +63,6 @@ class AuthorizeRequest extends AbstractRequest
       return $this->setParameter('identifiant', $value);
     }
 
-    public function signData($data)
-    {
-        return base64_encode(hash_hmac('sha256', $this->buildDataToSign($data), $this->getSecretKey(), true));
-    }
-
-    public function buildDataToSign($data)
-    {
-        $signedFieldNames = explode(",", $data["signed_field_names"]);
-        foreach ($signedFieldNames as $field) {
-            $dataToSign[] = $field . "=" . $data[$field];
-        }
-        return implode(",", $dataToSign);
-    }
-
     public function getRequiredFields() {
         $extraFields = $this->getIsUsOrCanada() ? $this->getRequiredFieldsUsAndCanada() : array();
         return array_merge(array(
@@ -87,7 +73,6 @@ class AuthorizeRequest extends AbstractRequest
             'email',
             'firstName',
             'lastName',
-            'currency',
         ), $extraFields);
     }
 
@@ -135,6 +120,7 @@ class AuthorizeRequest extends AbstractRequest
 
     public function getEndpoint()
     {
+      return 'https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi';
         return 'https://ppps.paybox.com/PPPS.php';
     }
 

@@ -5,7 +5,7 @@ namespace Omnipay\Paybox\Message;
 /**
  * Cybersource Purchase Request
  */
-class PurchaseRequest extends AuthorizeRequest
+class PurchaseRequest extends SystemAuthorizeRequest
 {
   public function getTransactionType()
   {

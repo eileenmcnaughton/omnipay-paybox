@@ -3,11 +3,12 @@
 namespace Omnipay\Paybox;
 
 use Omnipay\Tests\GatewayTestCase;
+use Omnipay\Paybox\SystemGateway;
 
 class SystemGatewayTest extends GatewayTestCase
 {
   /**
-   * @var SystemGateway
+   * @var Omnipay/Paybox/SystemGateway
    */
     public $gateway;
 
@@ -20,10 +21,21 @@ class SystemGatewayTest extends GatewayTestCase
 
     public function testPurchase()
     {
-        $request = $this->gateway->purchase(array('amount' => '10.00'));
+        $response = $this->gateway->purchase(array('amount' => '10.00', 'currency' => 978))->send();
+        $this->assertFalse($response->isSuccessful());
+        $this->assertTrue($response->isRedirect());
+        $this->assertNotEmpty($response->getRedirectUrl());
 
-        $this->assertInstanceOf('Omnipay\Paybox\Message\PurchaseRequest', $request);
-        $this->assertSame('10.00', $request->getAmount());
+      $response->getRedirectData();
+
+      $request = $this->gateway->purchase(array('amount' => '10.00'));
+      $this->assertInstanceOf('Omnipay\Paybox\Message\PurchaseRequest', $request);
+      $this->assertSame('10.00', $request->getAmount());
+      $this->assertFalse($response->isSuccessful());
+      $this->assertTrue($response->isRedirect());
+      $this->assertNotEmpty($response->getRedirectUrl());
+
+      $this->assertSame('https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi?', $response->getRedirectUrl());
     }
 
     public function testCompletePurchase()
@@ -42,6 +54,6 @@ class SystemGatewayTest extends GatewayTestCase
       )))->send();
 
       $this->assertInstanceOf('Omnipay\Paybox\Message\Response', $request);
-      $this->assertTrue($request->isTransparentRedirect());
+      $this->assertFalse($request->isTransparentRedirect());
     }
 }
