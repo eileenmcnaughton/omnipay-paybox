@@ -7,8 +7,8 @@ namespace Omnipay\Paybox\Message;
  */
 class PurchaseRequest extends SystemAuthorizeRequest
 {
-  public function getTransactionType()
-  {
-    return '00003';
-  }
+    public function getTransactionType()
+    {
+        return '00003';
+    }
 }

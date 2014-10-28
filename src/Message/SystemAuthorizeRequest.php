@@ -13,7 +13,6 @@ class SystemAuthorizeRequest extends AbstractRequest
     public function getData()
     {
         $this->validate('currency', 'amount');
-
         return $this->getBaseData() + $this->getTransactionData();
     }
 
@@ -59,7 +58,8 @@ class SystemAuthorizeRequest extends AbstractRequest
     }
 
     public function getRequiredFields() {
-        return array(
+        return array
+        (
             'amount',
             'email',
             'currency',
@@ -68,7 +68,8 @@ class SystemAuthorizeRequest extends AbstractRequest
 
     public function getTransactionData()
     {
-        return array(
+        return array
+        (
             'PBX_CMD' => $this->getTransactionId(),
             'PBX_TOTAL' => $this->getAmount(),
             'PBX_DEVISE' => $this->getCurrencyNumeric(),
@@ -102,10 +103,13 @@ class SystemAuthorizeRequest extends AbstractRequest
         return uniqid();
     }
 
+    /**
+    * @return string
+    * http://www1.paybox.com/wp-content/uploads/2014/02/ManuelIntegrationPayboxSystem_V6.2_EN.pdf
+    */
     public function getEndpoint()
     {
       return 'https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi';
-        return 'https://ppps.paybox.com/PPPS.php';
     }
 
     public function getPaymentMethod()

@@ -27,7 +27,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
 
     public function isRedirect()
     {
-        return TRUE;
+        return true;
     }
 
     public function isTransparentRedirect()
@@ -37,7 +37,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
 
     public function getRedirectUrl()
     {
-      return $this->endpoint .'?'.http_build_query($this->data);
+      return $this->endpoint .'?' . http_build_query($this->data);
     }
 
     public function getRedirectMethod()
@@ -48,17 +48,5 @@ class Response extends AbstractResponse implements RedirectResponseInterface
     public function getRedirectData()
     {
         return $this->getData();
-    }
-
-    public function getRedirectResponseHiddenFields() {
-      $hiddenFields = '';
-      foreach ($this->getRedirectData() as $key => $value) {
-        $hiddenFields .= sprintf(
-            '<input type="hidden" name="%1$s" value="%2$s" />',
-            htmlentities($key, ENT_QUOTES, 'UTF-8', false),
-            htmlentities($value, ENT_QUOTES, 'UTF-8', false)
-          )."\n";
-      }
-      return $hiddenFields;
     }
 }
