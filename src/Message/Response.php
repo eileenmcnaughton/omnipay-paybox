@@ -6,7 +6,6 @@ use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Common\Message\RedirectResponseInterface;
 
-
 /**
  * Stripe Response
  */
@@ -23,7 +22,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
 
     public function isSuccessful()
     {
-        return FALSE;
+        return false;
     }
 
     public function isRedirect()
@@ -33,7 +32,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
 
     public function isTransparentRedirect()
     {
-      return FALSE;
+      return false;
     }
 
     public function getRedirectUrl()

@@ -26,7 +26,6 @@ class UpdateCardRequest extends AuthorizeRequest
     }
     public function getTransactionType()
     {
-      return '00056';
+        return '00056';
     }
-
 }
