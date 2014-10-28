@@ -135,20 +135,4 @@ class DirectGateway extends AbstractGateway
     {
         return $this->setParameter('transactionType', $value);
     }
-
-    public function generateSignature($data)
-    {
-      /** @var copied from paybox $binKey */
-      $binKey = pack('H*', $this->globals['hmac_key']);
-      return hash_hmac($this->globals['hmac_algorithm'], $this->stringifyParameters(), $binKey);
-      //from cybersource
-        $data_to_sign = array();
-        foreach ($data as $key => $value)
-        {
-            $data_to_sign[] = $key . "=" . $value;
-        }
-        $pairs = implode(',', $data_to_sign);
-
-        return base64_encode(hash_hmac('sha256', $pairs, $this->getSecretKey(), true));
-    }
 }
