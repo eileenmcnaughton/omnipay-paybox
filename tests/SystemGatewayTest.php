@@ -17,32 +17,27 @@ class SystemGatewayTest extends GatewayTestCase
         parent::setUp();
 
         $this->gateway = new SystemGateway($this->getHttpClient(), $this->getHttpRequest());
+        $this->gateway->setSite(1999888);
+        $this->gateway->setRang(32);
+        $this->gateway->setIdentifiant(110647233);
     }
 
     public function testPurchase()
     {
         $response = $this->gateway->purchase(array('amount' => '10.00', 'currency' => 978))->send();
+        $this->assertInstanceOf('Omnipay\Paybox\Message\SystemResponse', $response);
         $this->assertFalse($response->isSuccessful());
         $this->assertTrue($response->isRedirect());
         $this->assertNotEmpty($response->getRedirectUrl());
 
-      $response->getRedirectData();
-
-      $request = $this->gateway->purchase(array('amount' => '10.00'));
-      $this->assertInstanceOf('Omnipay\Paybox\Message\PurchaseRequest', $request);
-      $this->assertSame('10.00', $request->getAmount());
-      $this->assertFalse($response->isSuccessful());
-      $this->assertTrue($response->isRedirect());
-      $this->assertNotEmpty($response->getRedirectUrl());
-
-      $this->assertSame('https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi?', $response->getRedirectUrl());
+        $this->assertSame('https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi?PBX_SITE=1999888&PBX_RANG=32&PBX_IDENTIFIANT=110647233&PBX_TOTAL=10.00', $response->getRedirectUrl());
     }
 
     public function testCompletePurchase()
     {
         $request = $this->gateway->completePurchase(array('amount' => '10.00'));
 
-        $this->assertInstanceOf('Omnipay\Paybox\Message\CompletePurchaseRequest', $request);
+        $this->assertInstanceOf('Omnipay\Paybox\Message\SystemCompletePurchaseRequest', $request);
         $this->assertSame('10.00', $request->getAmount());
     }
 
@@ -53,7 +48,7 @@ class SystemGatewayTest extends GatewayTestCase
         'lastName' => 'The second',
       )))->send();
 
-      $this->assertInstanceOf('Omnipay\Paybox\Message\Response', $request);
+      $this->assertInstanceOf('Omnipay\Paybox\Message\SystemResponse', $request);
       $this->assertFalse($request->isTransparentRedirect());
     }
 }

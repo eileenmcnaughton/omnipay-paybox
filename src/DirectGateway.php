@@ -50,7 +50,7 @@ class DirectGateway extends AbstractGateway
     /**
      *
      * @param array $parameters
-     * @return \Omnipay\Paybox\Message\PurchaseRequest
+     * @return \Omnipay\Paybox\Message\DirectPurchaseRequest
      */
     public function purchase(array $parameters = array())
     {

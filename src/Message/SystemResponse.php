@@ -7,9 +7,9 @@ use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Common\Message\RedirectResponseInterface;
 
 /**
- * Stripe Response
+ * Response
  */
-class Response extends AbstractResponse implements RedirectResponseInterface
+class SystemResponse extends AbstractResponse implements RedirectResponseInterface
 {
     public $endpoint = 'https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi';
 
@@ -17,7 +17,6 @@ class Response extends AbstractResponse implements RedirectResponseInterface
     {
         $this->request = $request;
         $this->data = $data;
-      //  $this->redirectUrl = $redirectUrl;
     }
 
     public function isSuccessful()

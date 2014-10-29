@@ -18,13 +18,12 @@ class SystemAuthorizeRequest extends AbstractRequest
 
     public function sendData($data)
     {
-        $httpResponse = $this->httpClient->post($this->getEndpoint(), null, $data)->send();
-        return $this->createResponse($httpResponse);
+        return $this->response = new SystemResponse($this, $data, $this->getEndpoint());
     }
 
     protected function createResponse($data)
     {
-        return $this->response = new Response($this, $data);
+        return $this->response = new SystemResponse($this, $data);
     }
 
     public function getSite()
@@ -86,13 +85,6 @@ class SystemAuthorizeRequest extends AbstractRequest
             'PBX_SITE' => $this->getSite(),
             'PBX_RANG' => $this->getRang(),
             'PBX_IDENTIFIANT' => $this->getIdentifiant(),
-            //@todo where should this be set ?
-            // 00103 for Paybox Direct
-            // 00104 for Paybox Direct Plus
-            'VERSION' => '00103',
-            'DATEQ' => date('dmYhis'),
-            'NUMQUESTION' => substr(uniqid(), 0, 10),
-            'TYPE' => $this->getTransactionType()
         );
     }
 

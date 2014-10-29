@@ -50,46 +50,46 @@ class SystemGateway extends AbstractGateway
     /**
      *
      * @param array $parameters
-     * @return \Omnipay\Paybox\Message\PurchaseRequest
+     * @return \Omnipay\Paybox\Message\SystemPurchaseRequest
      */
     public function purchase(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Paybox\Message\PurchaseRequest', $parameters);
+        return $this->createRequest('\Omnipay\Paybox\Message\SystemPurchaseRequest', $parameters);
     }
 
     /**
      *
      * @param array $parameters
-     * @return \Omnipay\Paybox\Message\CompletePurchaseRequest
+     * @return \Omnipay\Paybox\Message\SystemCompletePurchaseRequest
      */
     public function completePurchase(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Paybox\Message\CompletePurchaseRequest', $parameters);
+        return $this->createRequest('\Omnipay\Paybox\Message\SystemCompletePurchaseRequest', $parameters);
     }
 
     /**
      * @param array $parameters
-     * @return \Omnipay\Paybox\Message\CompleteAuthorizeRequest
+     * @return \Omnipay\Paybox\Message\SystemCompleteAuthorizeRequest
      */
     public function completeAuthorize(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Paybox\Message\CompleteAuthorizeRequest', $parameters);
+        return $this->createRequest('\Omnipay\Paybox\Message\SystemCompleteAuthorizeRequest', $parameters);
     }
 
     /**
      *
      * @param array $parameters
-     * @return \Omnipay\Paybox\Message\CreateCardRequest
+     * @return \Omnipay\Paybox\Message\SystemCreateCardRequest
      */
     public function createCard(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Paybox\Message\CreateCardRequest', $parameters);
+        return $this->createRequest('\Omnipay\Paybox\Message\SystemCreateCardRequest', $parameters);
     }
 
     /**
      *
      * @param array $parameters
-     * @return \Omnipay\Paybox\Message\UpdateCardRequest
+     * @return \Omnipay\Paybox\Message\SystemUpdateCardRequest
      */
     public function updateCard(array $parameters = array())
     {
