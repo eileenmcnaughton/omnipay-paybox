@@ -7,4 +7,4 @@ namespace Omnipay\Paybox\Message;
  */
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
- }
+}

@@ -32,12 +32,12 @@ class Response extends AbstractResponse implements RedirectResponseInterface
 
     public function isTransparentRedirect()
     {
-      return false;
+        return false;
     }
 
     public function getRedirectUrl()
     {
-      return $this->endpoint .'?' . http_build_query($this->data);
+        return $this->endpoint .'?' . http_build_query($this->data);
     }
 
     public function getRedirectMethod()

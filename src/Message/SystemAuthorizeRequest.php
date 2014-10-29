@@ -57,7 +57,8 @@ class SystemAuthorizeRequest extends AbstractRequest
         return $this->setParameter('identifiant', $value);
     }
 
-    public function getRequiredFields() {
+    public function getRequiredFields()
+    {
         return array
         (
             'amount',
@@ -90,8 +91,8 @@ class SystemAuthorizeRequest extends AbstractRequest
             // 00104 for Paybox Direct Plus
             'VERSION' => '00103',
             'DATEQ' => date('dmYhis'),
-            'TYPE' => $this->getTransactionType(),
             'NUMQUESTION' => substr(uniqid(),0, 10),
+            'TYPE' => $this->getTransactionType()
         );
     }
 
@@ -109,7 +110,7 @@ class SystemAuthorizeRequest extends AbstractRequest
     */
     public function getEndpoint()
     {
-      return 'https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi';
+        return 'https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi';
     }
 
     public function getPaymentMethod()
