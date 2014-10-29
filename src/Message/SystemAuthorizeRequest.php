@@ -12,7 +12,10 @@ class SystemAuthorizeRequest extends AbstractRequest
 
     public function getData()
     {
-        $this->validate('currency', 'amount');
+        foreach ($this->getRequiredCoreFields() as $field) {
+            $this->validate($field);
+        }
+        $this->validateCardFields();
         return $this->getBaseData() + $this->getTransactionData();
     }
 
@@ -56,13 +59,20 @@ class SystemAuthorizeRequest extends AbstractRequest
         return $this->setParameter('identifiant', $value);
     }
 
-    public function getRequiredFields()
+    public function getRequiredCoreFields()
     {
         return array
         (
             'amount',
-            'email',
             'currency',
+        );
+    }
+
+    public function getRequiredCardFields()
+    {
+        return array
+        (
+            'email',
         );
     }
 
@@ -70,9 +80,10 @@ class SystemAuthorizeRequest extends AbstractRequest
     {
         return array
         (
-            'PBX_CMD' => $this->getTransactionId(),
             'PBX_TOTAL' => $this->getAmount(),
             'PBX_DEVISE' => $this->getCurrencyNumeric(),
+            'PBX_CMD' => $this->getTransactionId(),
+            'PBX_PORTEUR' => $this->getCard()->getEmail(),
         );
     }
 
