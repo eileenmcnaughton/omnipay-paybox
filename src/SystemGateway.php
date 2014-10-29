@@ -34,7 +34,7 @@ class SystemGateway extends AbstractGateway
      */
     public function authorize(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Paybox\Message\AuthorizeRequest', $parameters);
+        return $this->createRequest('\Omnipay\Paybox\Message\SystemAuthorizeRequest', $parameters);
     }
 
     /**
@@ -44,7 +44,7 @@ class SystemGateway extends AbstractGateway
      */
     public function capture(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Paybox\Message\CaptureRequest', $parameters);
+        return $this->createRequest('\Omnipay\Paybox\Message\SystemCaptureRequest', $parameters);
     }
 
     /**
@@ -93,7 +93,7 @@ class SystemGateway extends AbstractGateway
      */
     public function updateCard(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Paybox\Message\UpdateCardRequest', $parameters);
+        return $this->createRequest('\Omnipay\Paybox\Message\SystemUpdateCardRequest', $parameters);
     }
 
     public function getSite()

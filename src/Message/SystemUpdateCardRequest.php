@@ -5,7 +5,7 @@ namespace Omnipay\Paybox\Message;
 /**
  * Paybox Create Credit Card Request
  */
-class UpdateCardRequest extends AuthorizeRequest
+class SystemUpdateCardRequest extends SystemAuthorizeRequest
 {
     public function getData()
     {

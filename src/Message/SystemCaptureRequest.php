@@ -3,9 +3,9 @@
 namespace Omnipay\Paybox\Message;
 
 /**
- * Paybox Authorize Request
+ * Paybox System Authorize Request
  */
-class CaptureRequest extends PurchaseRequest
+class SystemCaptureRequest extends PurchaseRequest
 {
     public function getTransactionType()
     {

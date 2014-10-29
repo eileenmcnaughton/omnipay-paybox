@@ -7,7 +7,7 @@ use Omnipay\Paybox\Message\AbstractRequest;
 /**
  * Paybox Authorize Request
  */
-class AuthorizeRequest extends AbstractRequest
+class DirectAuthorizeRequest extends AbstractRequest
 {
 
     public function getData()
