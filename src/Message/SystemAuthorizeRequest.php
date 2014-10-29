@@ -91,7 +91,7 @@ class SystemAuthorizeRequest extends AbstractRequest
             // 00104 for Paybox Direct Plus
             'VERSION' => '00103',
             'DATEQ' => date('dmYhis'),
-            'NUMQUESTION' => substr(uniqid(),0, 10),
+            'NUMQUESTION' => substr(uniqid(), 0, 10),
             'TYPE' => $this->getTransactionType()
         );
     }

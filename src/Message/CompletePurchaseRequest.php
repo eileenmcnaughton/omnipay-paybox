@@ -3,7 +3,7 @@
 namespace Omnipay\Paybox\Message;
 
 /**
- * Cybersource Authorize Request
+ * Paybox Authorize Request
  */
 class CompletePurchaseRequest extends PurchaseRequest
 {

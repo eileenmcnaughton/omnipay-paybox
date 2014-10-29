@@ -5,7 +5,7 @@ namespace Omnipay\Paybox\Message;
 use Omnipay\Paybox\Message\AbstractRequest;
 
 /**
- * Cybersource Authorize Request
+ * Paybox Authorize Request
  */
 class AuthorizeRequest extends AbstractRequest
 {
@@ -107,7 +107,7 @@ class AuthorizeRequest extends AbstractRequest
             // 00104 for Paybox Direct Plus
             'VERSION' => '00103',
             'TYPE' => $this->getTransactionType(),
-            'NUMQUESTION' => substr(uniqid(),0, 10),
+            'NUMQUESTION' => substr(uniqid(), 0, 10),
             'DATEQ' => date('dmYhis')
         );
     }
