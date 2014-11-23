@@ -36,7 +36,7 @@ class SystemAuthorizeResponse extends AbstractResponse
 
     public function getRedirectMethod()
     {
-        return 'GET';
+        return 'POST';
     }
 
     public function getRedirectData()

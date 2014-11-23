@@ -13,10 +13,27 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         $card = $this->getCard();
         foreach ($this->getRequiredCardFields() as $field) {
             $fn = 'get' . ucfirst($field);
-            if (empty($card->$fn())) {
+            $value = $card->$fn();
+            if ($value === NULL) {
                 throw new InvalidRequestException("The $field parameter is required");
             }
         }
+    }
+
+    /**
+     * Generate a signature using a secret key
+     * @param $data
+     * @return string
+     */
+    public function generateSignature($data)
+    {
+        $msg = array();
+        foreach ($data as $key => $value) {
+            $msg[] = "{$key}={$value}";
+        }
+        // If the key is in ASCII format, convert it to binary
+        $binKey = pack("H*", $this->getKey());
+        return strtoupper(hash_hmac('sha512', implode('&', $msg), $binKey));
     }
 
     public function getSite()
@@ -27,6 +44,16 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function setSite($value)
     {
         return $this->setParameter('site', $value);
+    }
+
+    public function getKey()
+    {
+        return $this->getParameter('key');
+    }
+
+    public function setKey($value)
+    {
+        return $this->setParameter('key', $value);
     }
 
     public function getRang()

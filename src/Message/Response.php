@@ -6,37 +6,37 @@ use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Common\Message\RedirectResponseInterface;
 
-/**
- * Response
- */
-class SystemResponse extends AbstractResponse implements RedirectResponseInterface
-{
-    public $endpoint = 'https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi';
 
+/**
+ * Stripe Response
+ */
+class Response extends AbstractResponse implements RedirectResponseInterface
+{
     public function __construct(RequestInterface $request, $data)
     {
         $this->request = $request;
         $this->data = $data;
+      //  $this->redirectUrl = $redirectUrl;
     }
 
     public function isSuccessful()
     {
-        return false;
+        return FALSE;
     }
 
     public function isRedirect()
     {
-        return true;
+        return TRUE;
     }
 
     public function isTransparentRedirect()
     {
-        return false;
+      return TRUE;
     }
 
     public function getRedirectUrl()
     {
-        return $this->endpoint .'?' . http_build_query($this->data);
+        return $this->redirectUrl;
     }
 
     public function getRedirectMethod()
@@ -47,5 +47,17 @@ class SystemResponse extends AbstractResponse implements RedirectResponseInterfa
     public function getRedirectData()
     {
         return $this->getData();
+    }
+
+    public function getRedirectResponseHiddenFields() {
+      $hiddenFields = '';
+      foreach ($this->getRedirectData() as $key => $value) {
+        $hiddenFields .= sprintf(
+            '<input type="hidden" name="%1$s" value="%2$s" />',
+            htmlentities($key, ENT_QUOTES, 'UTF-8', false),
+            htmlentities($value, ENT_QUOTES, 'UTF-8', false)
+          )."\n";
+      }
+      return $hiddenFields;
     }
 }

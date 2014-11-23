@@ -2,8 +2,8 @@
 namespace Omnipay\Paybox;
 
 use Omnipay\Common\AbstractGateway;
-use Omnipay\Paybox\Message\DirectPurchaseRequest;
-use Omnipay\Paybox\Message\DirectRefundRequest;
+use Omnipay\PayboxDirect\Message\PurchaseRequest;
+use Omnipay\PayboxDirect\Message\RefundRequest;
 
 /**
  * Paybox System Gateway
@@ -23,69 +23,70 @@ class DirectGateway extends SystemGateway
     /**
      *
      * @param array $parameters
-     * @return \Omnipay\Paybox\Message\DirectAuthorizeRequest
+     * @return \Omnipay\PayboxDirect\Message\AuthorizeRequest
      */
     public function authorize(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\PayboxDirect\Message\DirectAuthorizeRequest', $parameters);
+        return $this->createRequest('\Omnipay\PayboxDirect\Message\AuthorizeRequest', $parameters);
     }
 
     /**
      *
      * @param array $parameters
-     * @return \Omnipay\Paybox\Message\DirectCaptureRequest
+     * @return \Omnipay\PayboxDirect\Message\CaptureRequest
      */
     public function capture(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Paybox\Message\DirectCaptureRequest', $parameters);
+        return $this->createRequest('\Omnipay\PayboxDirect\Message\CaptureRequest', $parameters);
     }
 
     /**
      *
      * @param array $parameters
-     * @return \Omnipay\Paybox\Message\DirectPurchaseRequest
+     * @return \Omnipay\PayboxDirect\Message\PurchaseRequest
      */
     public function purchase(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Paybox\Message\DirectPurchaseRequest', $parameters);
+        return $this->createRequest('\Omnipay\PayboxDirect\Message\PurchaseRequest', $parameters);
     }
 
     /**
      *
      * @param array $parameters
-     * @return \Omnipay\Paybox\Message\DirectCompletePurchaseRequest
+     * @return \Omnipay\PayboxDirect\Message\CompletePurchaseRequest
      */
     public function completePurchase(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Paybox\Message\DirectCompletePurchaseRequest', $parameters);
+        return $this->createRequest('\Omnipay\PayboxDirect\Message\CompletePurchaseRequest', $parameters);
     }
 
     /**
      * @param array $parameters
-     * @return \Omnipay\Paybox\Message\DirectCompleteAuthorizeRequest
+     * @return \Omnipay\PayboxDirect\Message\CompleteAuthorizeRequest
      */
     public function completeAuthorize(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Paybox\Message\DirectCompleteAuthorizeRequest', $parameters);
+        return $this->createRequest('\Omnipay\PayboxDirect\Message\CompleteAuthorizeRequest', $parameters);
     }
 
     /**
      *
      * @param array $parameters
-     * @return \Omnipay\Paybox\Message\DirectCreateCardRequest
+     * @return \Omnipay\PayboxDirect\Message\CreateCardRequest
      */
     public function createCard(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Paybox\Message\DirectCreateCardRequest', $parameters);
+        return $this->createRequest('\Omnipay\PayboxDirect\Message\CreateCardRequest', $parameters);
     }
 
     /**
      *
      * @param array $parameters
-     * @return \Omnipay\Paybox\Message\DirectUpdateCardRequest
+     * @return \Omnipay\PayboxDirect\Message\UpdateCardRequest
      */
     public function updateCard(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Paybox\Message\DirectUpdateCardRequest', $parameters);
+        return $this->createRequest('\Omnipay\PayboxDirect\Message\UpdateCardRequest', $parameters);
     }
+
 }

@@ -2,9 +2,6 @@
 
 **Paybox driver for the Omnipay PHP payment processing library**
 
-[![Build Status](https://travis-ci.org/eileenmcnaughton/omnipay-paybox.png?branch=master)](https://travis-ci.org/eileenmcnaughton/omnipay-paybox)
-[![Latest Stable Version](https://poser.pugx.org/eileenmcnaughton/omnipay-paybox/version.png)](https://packagist.org/eileenmcnaughton/omnipay-paybox/)
-[![Total Downloads](https://poser.pugx.org/eileenmcnaughton/omnipay-paybox/d/total.png)](https://packagist.org/eileenmcnaughton/omnipay-paybox/)
 
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
 processing library for PHP 5.3+. This package implements 2Checkout support for Omnipay.

@@ -16,7 +16,9 @@ class SystemAuthorizeRequest extends AbstractRequest
             $this->validate($field);
         }
         $this->validateCardFields();
-        return $this->getBaseData() + $this->getTransactionData();
+        $data = $this->getBaseData() + $this->getTransactionData();
+        $data['PBX_HMAC'] = $this->generateSignature($data);
+        return $data;
     }
 
     public function sendData($data)
@@ -80,10 +82,13 @@ class SystemAuthorizeRequest extends AbstractRequest
     {
         return array
         (
-            'PBX_TOTAL' => $this->getAmount(),
+            'PBX_TOTAL' => $this->getAmountInteger(),
             'PBX_DEVISE' => $this->getCurrencyNumeric(),
             'PBX_CMD' => $this->getTransactionId(),
             'PBX_PORTEUR' => $this->getCard()->getEmail(),
+            'PBX_RETOUR' => 'Mt:M;Ref:R;Auto:A;Erreur:E',
+            'PBX_HASH' => 'SHA512',
+            'PBX_TIME' => date("c"),
         );
     }
 
