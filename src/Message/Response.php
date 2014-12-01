@@ -6,7 +6,6 @@ use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Common\Message\RedirectResponseInterface;
 
-
 /**
  * Stripe Response
  */
@@ -16,22 +15,22 @@ class Response extends AbstractResponse implements RedirectResponseInterface
     {
         $this->request = $request;
         $this->data = $data;
-      //  $this->redirectUrl = $redirectUrl;
+        //  $this->redirectUrl = $redirectUrl;
     }
 
     public function isSuccessful()
     {
-        return FALSE;
+        return false;
     }
 
     public function isRedirect()
     {
-        return TRUE;
+        return true;
     }
 
     public function isTransparentRedirect()
     {
-      return TRUE;
+        return true;
     }
 
     public function getRedirectUrl()
@@ -54,10 +53,10 @@ class Response extends AbstractResponse implements RedirectResponseInterface
         $hiddenFields = '';
         foreach ($this->getRedirectData() as $key => $value) {
             $hiddenFields .= sprintf(
-                    '<input type="hidden" name="%1$s" value="%2$s" />',
-                    htmlentities($key, ENT_QUOTES, 'UTF-8', false),
-                    htmlentities($value, ENT_QUOTES, 'UTF-8', false)
-                ) . "\n";
+                '<input type="hidden" name="%1$s" value="%2$s" />',
+                htmlentities($key, ENT_QUOTES, 'UTF-8', false),
+                htmlentities($value, ENT_QUOTES, 'UTF-8', false)
+            ) . "\n";
         }
         return $hiddenFields;
     }

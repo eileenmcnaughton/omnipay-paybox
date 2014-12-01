@@ -29,5 +29,4 @@ class CreateCardRequest extends AuthorizeRequest
     {
         return '00056';
     }
-
 }

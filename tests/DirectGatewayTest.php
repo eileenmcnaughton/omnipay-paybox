@@ -31,12 +31,12 @@ class DirectGatewayTest extends GatewayTestCase
 
     public function testCompletePurchaseSend()
     {
-      $request = $this->gateway->purchase(array('amount' => '10.00', 'currency' => 'USD', 'card' => array(
-        'firstName' => 'Pokemon',
-        'lastName' => 'The second',
-      )))->send();
+        $request = $this->gateway->purchase(array('amount' => '10.00', 'currency' => 'USD', 'card' => array(
+            'firstName' => 'Pokemon',
+            'lastName' => 'The second',
+        )))->send();
 
-      $this->assertInstanceOf('Omnipay\Paybox\Message\Response', $request);
-      $this->assertTrue($request->isTransparentRedirect());
+        $this->assertInstanceOf('Omnipay\Paybox\Message\Response', $request);
+        $this->assertTrue($request->isTransparentRedirect());
     }
 }

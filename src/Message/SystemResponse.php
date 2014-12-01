@@ -36,7 +36,7 @@ class SystemResponse extends AbstractResponse implements RedirectResponseInterfa
 
     public function getRedirectUrl()
     {
-        return $this->endpoint .'?' . http_build_query($this->data);
+        return $this->endpoint . '?' . http_build_query($this->data);
     }
 
     public function getRedirectMethod()
