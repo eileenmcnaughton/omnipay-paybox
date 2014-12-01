@@ -9,6 +9,6 @@ class PurchaseRequest extends AuthorizeRequest
 {
   public function getTransactionType()
   {
-    return '00003';
+      return '00003';
   }
 }

@@ -3,6 +3,7 @@
 namespace Omnipay\Paybox\Message;
 
 use Omnipay\Common\Message\AbstractRequest;
+
 /**
  * Cybersource Authorize Request
  */
@@ -23,44 +24,44 @@ class AuthorizeRequest extends AbstractRequest
 
     public function sendData($data)
     {
-      $httpResponse = $this->httpClient->post($this->getEndpoint(), null, $data)->send();
+        $httpResponse = $this->httpClient->post($this->getEndpoint(), null, $data)->send();
 
-      return $this->createResponse($httpResponse);
+        return $this->createResponse($httpResponse);
     }
 
     protected function createResponse($data)
     {
-      return $this->response = new Response($this, $data);
+        return $this->response = new Response($this, $data);
     }
 
     public function getSite()
     {
-      return $this->getParameter('site');
+        return $this->getParameter('site');
     }
 
     public function setSite($value)
     {
-      return $this->setParameter('site', $value);
+        return $this->setParameter('site', $value);
     }
 
     public function getRang()
     {
-      return $this->getParameter('rang');
+        return $this->getParameter('rang');
     }
 
     public function setRang($value)
     {
-      return $this->setParameter('rang', $value);
+        return $this->setParameter('rang', $value);
     }
 
     public function getIdentifiant()
     {
-      return $this->getParameter('identifiant');
+        return $this->getParameter('identifiant');
     }
 
     public function setIdentifiant($value)
     {
-      return $this->setParameter('identifiant', $value);
+        return $this->setParameter('identifiant', $value);
     }
 
     public function signData($data)
@@ -77,7 +78,8 @@ class AuthorizeRequest extends AbstractRequest
         return implode(",", $dataToSign);
     }
 
-    public function getRequiredFields() {
+    public function getRequiredFields()
+    {
         $extraFields = $this->getIsUsOrCanada() ? $this->getRequiredFieldsUsAndCanada() : array();
         return array_merge(array(
             'amount',
@@ -91,7 +93,8 @@ class AuthorizeRequest extends AbstractRequest
         ), $extraFields);
     }
 
-    public function getRequiredFieldsUsAndCanada() {
+    public function getRequiredFieldsUsAndCanada()
+    {
         return array(
             'postcode',
             'billingState',
@@ -121,7 +124,7 @@ class AuthorizeRequest extends AbstractRequest
             'VERSION' => '00103',
             'DATEQ' => date('dmYhis'),
             'TYPE' => $this->getTransactionType(),
-            'NUMQUESTION' => substr(uniqid(),0, 10),
+            'NUMQUESTION' => substr(uniqid(), 0, 10),
         );
     }
 
