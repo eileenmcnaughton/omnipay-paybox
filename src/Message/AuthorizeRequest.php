@@ -2,8 +2,6 @@
 
 namespace Omnipay\Paybox\Message;
 
-use Omnipay\Common\Message\AbstractRequest;
-
 /**
  * Cybersource Authorize Request
  */
