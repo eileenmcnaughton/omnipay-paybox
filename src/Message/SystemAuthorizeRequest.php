@@ -2,8 +2,6 @@
 
 namespace Omnipay\Paybox\Message;
 
-use Omnipay\Paybox\Message\AbstractRequest;
-
 /**
  * Paybox System Authorize Request
  */
