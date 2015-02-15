@@ -6,6 +6,11 @@ use Omnipay\Tests\GatewayTestCase;
 
 class DirectGatewayTest extends GatewayTestCase
 {
+    /**
+     * @var
+     */
+    protected $gateway;
+
     public function setUp()
     {
         parent::setUp();
@@ -26,6 +31,7 @@ class DirectGatewayTest extends GatewayTestCase
         $request = $this->gateway->purchase(array('amount' => '10.00', 'currency' => 'USD', 'card' => array(
             'firstName' => 'Pokemon',
             'lastName' => 'The second',
+            'email' => 'any@email.com',
         )))->send();
 
         $this->assertInstanceOf('Omnipay\Paybox\Message\Response', $request);

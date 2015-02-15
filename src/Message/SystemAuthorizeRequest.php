@@ -115,7 +115,11 @@ class SystemAuthorizeRequest extends AbstractRequest
      */
     public function getEndpoint()
     {
-        return 'https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi';
+        if ($this->getTestMode()) {
+            return 'https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi';
+        } else {
+            return 'https://tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi';
+        }
     }
 
     public function getPaymentMethod()
