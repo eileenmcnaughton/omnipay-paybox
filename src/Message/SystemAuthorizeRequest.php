@@ -26,7 +26,7 @@ class SystemAuthorizeRequest extends AbstractRequest
 
     protected function createResponse($data)
     {
-        return $this->response = new SystemResponse($this, $data);
+        return $this->response = new SystemResponse($this, $data, $this->getEndpoint());
     }
 
     public function getSite()
