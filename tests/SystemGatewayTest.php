@@ -24,6 +24,16 @@ class SystemGatewayTest extends GatewayTestCase
 
         $this->assertInstanceOf('Omnipay\Paybox\Message\SystemPurchaseRequest', $request);
         $this->assertSame('10.00', $request->getAmount());
+        $this->assertSame('https://tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi', $request->getEndpoint());
+    }
+
+    public function testPurchaseTestMode()
+    {
+        $request = $this->gateway->purchase(array('amount' => '10.00', 'testMode' => true));
+
+        $this->assertInstanceOf('Omnipay\Paybox\Message\SystemPurchaseRequest', $request);
+        $this->assertSame('10.00', $request->getAmount());
+        $this->assertSame('https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi', $request->getEndpoint());
     }
 
     public function testCompletePurchase()
