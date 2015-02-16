@@ -55,6 +55,7 @@ class SystemCompleteAuthorizeRequest extends AbstractRequest
      * Function adapted from LexikPayboxBundle.
      *
      * @return bool
+     * @throws InvalidRequestException
      */
     public function verifySignature()
     {
