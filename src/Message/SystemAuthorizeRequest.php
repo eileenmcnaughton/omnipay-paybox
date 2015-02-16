@@ -42,7 +42,7 @@ class SystemAuthorizeRequest extends AbstractRequest
             $this->validate($field);
         }
         $this->validateCardFields();
-        $data = $this->getBaseData() + $this->getTransactionData();
+        $data = $this->getBaseData() + $this->getTransactionData() + $this->getURLData();
         $data['PBX_HMAC'] = $this->generateSignature($data);
         return $data;
     }
@@ -112,7 +112,7 @@ class SystemAuthorizeRequest extends AbstractRequest
             'PBX_DEVISE' => $this->getCurrencyNumeric(),
             'PBX_CMD' => $this->getTransactionId(),
             'PBX_PORTEUR' => $this->getCard()->getEmail(),
-            'PBX_RETOUR' => 'Mt:M;Ref:R;Auto:A;Erreur:E',
+            'PBX_RETOUR' => 'Mt:M;Id:R;Ref:A;Erreur:E;sign:K',
             'PBX_TIME' => $this->getTime(),
         );
     }
@@ -127,6 +127,26 @@ class SystemAuthorizeRequest extends AbstractRequest
             'PBX_RANG' => $this->getRang(),
             'PBX_IDENTIFIANT' => $this->getIdentifiant(),
         );
+    }
+
+    /**
+     * Get values for IPN and browser return urls.
+     *
+     * Browser return urls should all be set or non set.
+     */
+    public function getURLData()
+    {
+        $data = array();
+        if ($this->getNotifyUrl()) {
+            $data['PBX_REPONDRE_A'] = urlencode($this->getNotifyUrl());
+        }
+        if ($this->getReturnUrl()) {
+            $data['PBX_EFFECTUE'] = $this->getReturnUrl();
+            $data['PBX_REFUSE'] = $this->getReturnUrl();
+            $data['PBX_ANNULE'] = $this->getCancelUrl();
+            $data['PBX_ATTENTE'] = $this->getReturnUrl();
+        }
+        return $data;
     }
 
     /**

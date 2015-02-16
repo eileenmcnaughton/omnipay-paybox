@@ -11,7 +11,7 @@ class AbstractRequestTest extends TestCase
      * Key for test site - see http://www1.paybox.com/wp-content/uploads/2014/02/PayboxTestParameters_V6.2_EN.pdf
      * @var string
      */
-    public $key = '0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF';
+    protected $key = '0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF';
 
     /**
      * @var SystemPurchaseRequest
@@ -64,7 +64,7 @@ class AbstractRequestTest extends TestCase
             "PBX_DEVISE" => "840",
             "PBX_CMD" => "3",
             "PBX_PORTEUR" => "admin@example.com",
-            "PBX_RETOUR" => "Mt:M;Ref:R;Auto:A;Erreur:E",
+            "PBX_RETOUR" => "Mt:M;Ref:R;Auto:A;Erreur:E;Sign:K",
             "PBX_TIME" => "2014-12-09T22:37:34+00:00",
         );
         $signature = $this->request->generateSignature($data);
