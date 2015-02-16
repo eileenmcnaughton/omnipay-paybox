@@ -99,8 +99,8 @@ class SystemGatewayTest extends GatewayTestCase
         $this->assertFalse($request->isTransparentRedirect());
         $expected_url = "https://tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi?PBX_SITE=1999888&PBX_RANG=32";
         $expected_url .= "&PBX_IDENTIFIANT=107904482&PBX_TOTAL=1000&PBX_DEVISE=978&PBX_CMD=3&PBX_PORTEUR=test%40paybox.com";
-        $expected_url .= "&PBX_RETOUR=Mt%3AM%3BRef%3AR%3BAuto%3AA%3BErreur%3AE&PBX_TIME=2014-12-09T22%3A37%3A34%2B00%3A00";
-        $hmac = 'D1B2566CFC88DD0C1106D7231FCCEFFA7FEB53EE39F025930745698F202EE8BCB07D91C5DB3AA6F770F3E3A2F369FE84275F569CD9984DDAC5929887056D1D5E';
+        $expected_url .= "&PBX_RETOUR=Mt%3AM%3BId%3AR%3BRef%3AA%3BErreur%3AE%3Bsign%3AK&PBX_TIME=2014-12-09T22%3A37%3A34%2B00%3A00";
+        $hmac = '309CF65B9A4381B44DAC7D8979208FCC4E0F3E819A00E1C5602B419FD7E4C2389468E679F30522581752B8FD26A8816004B6A17EFCDD2BEAD8F16A26D092EA98';
         $expected_url .= "&PBX_HMAC=" . $hmac;
         $this->assertSame($expected_url, $request->getRedirectUrl());
     }
