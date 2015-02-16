@@ -11,16 +11,16 @@ class SystemCompleteAuthorizeResponse extends AbstractResponse
 {
     public function isSuccessful()
     {
-        return isset($this->data['x_response_code']) && '1' === $this->data['x_response_code'];
+        return isset($this->data['Erreur']) && '00000' === $this->data['Erreur'];
     }
 
     public function getTransactionReference()
     {
-        return isset($this->data['x_trans_id']) ? $this->data['x_trans_id'] : null;
+        return isset($this->data['Id']) ? $this->data['Id'] : null;
     }
 
     public function getMessage()
     {
-        return isset($this->data['x_response_reason_text']) ? $this->data['x_response_reason_text'] : null;
+        return 'Transaction failed';
     }
 }
