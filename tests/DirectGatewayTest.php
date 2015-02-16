@@ -34,7 +34,7 @@ class DirectGatewayTest extends GatewayTestCase
             'email' => 'any@email.com',
         )))->send();
 
-        $this->assertInstanceOf('Omnipay\Paybox\Message\Response', $request);
+        $this->assertInstanceOf('Omnipay\Paybox\Message\DirectResponse', $request);
         $this->assertTrue($request->isTransparentRedirect());
     }
 }

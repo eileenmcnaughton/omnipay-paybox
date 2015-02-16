@@ -7,9 +7,9 @@ use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Common\Message\RedirectResponseInterface;
 
 /**
- * Stripe Response
+ * Paybox Direct method Response class.
  */
-class Response extends AbstractResponse implements RedirectResponseInterface
+class DirectResponse extends AbstractResponse implements RedirectResponseInterface
 {
     public function __construct(RequestInterface $request, $data)
     {
