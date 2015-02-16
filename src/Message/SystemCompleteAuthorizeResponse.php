@@ -1,11 +1,11 @@
 <?php
 
-namespace Omnipay\AuthorizeNet\Message;
+namespace Omnipay\Paybox\Message;
 
 use Omnipay\Common\Message\AbstractResponse;
 
 /**
- * Authorize.Net SIM Complete Authorize Response
+ * Paybox Complete Authorize Response
  */
 class SystemCompleteAuthorizeResponse extends AbstractResponse
 {
