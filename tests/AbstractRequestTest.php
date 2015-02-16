@@ -67,8 +67,9 @@ class AbstractRequestTest extends TestCase
             "PBX_RETOUR" => "Mt:M;Ref:R;Auto:A;Erreur:E;Sign:K",
             "PBX_TIME" => "2014-12-09T22:37:34+00:00",
         );
+
         $signature = $this->request->generateSignature($data);
-        $expected = "3B1A2C5BCC1BCA095A5F129027613C86ADA1ED83A7D3C07A699A8664EA1B988C622E146FFBDE946BE7A26DBCA45FE840E6769DB6BC4D1DC79F8F186475AE143F";
+        $expected = "140E5DD0BE2C784DC0055BD908C9AC65EF8C41E5E5D77E8D6E222C43F8A3D66701B772C23F87145E2FB848DF5B93BD8E922F856E2945E6BAA14BADC0D680AA54";
         $this->assertEquals($expected, $signature);
     }
 
