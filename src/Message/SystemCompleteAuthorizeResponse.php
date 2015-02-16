@@ -21,6 +21,6 @@ class SystemCompleteAuthorizeResponse extends AbstractResponse
 
     public function getMessage()
     {
-        return 'Transaction failed';
+        return !$this->isSuccessful() ? 'Transaction failed' : null;
     }
 }

@@ -27,6 +27,6 @@ class SystemCompleteAuthorizeResponseTest extends TestCase
 
         $this->assertFalse($response->isSuccessful());
         $this->assertNull($response->getTransactionReference());
-        $this->assertSame('Declined', $response->getMessage());
+        $this->assertSame('Transaction failed', $response->getMessage());
     }
 }
