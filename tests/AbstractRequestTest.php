@@ -71,5 +71,29 @@ class AbstractRequestTest extends TestCase
         $expected = "3B1A2C5BCC1BCA095A5F129027613C86ADA1ED83A7D3C07A699A8664EA1B988C622E146FFBDE946BE7A26DBCA45FE840E6769DB6BC4D1DC79F8F186475AE143F";
         $this->assertEquals($expected, $signature);
     }
+
+    /**
+     * This is the same data set used in the System Gateway test.
+     *
+     * It exists to 'prove' the data.
+     */
+    public function testSignData3()
+    {
+        $data = array(
+            "PBX_SITE" => 1999888,
+            "PBX_RANG" => 32,
+            "PBX_IDENTIFIANT" => 107904482,
+            "PBX_TOTAL" => 1000,
+            "PBX_DEVISE" => "978",
+            "PBX_CMD" => "3",
+            "PBX_PORTEUR" => "test@paybox.com",
+            "PBX_RETOUR" => "Mt:M;Ref:R;Auto:A;Erreur:E",
+            "PBX_TIME" => "2014-12-09T22:37:34+00:00",
+        );
+        $signature = $this->request->generateSignature($data);
+        $expected = "D1B2566CFC88DD0C1106D7231FCCEFFA7FEB53EE39F025930745698F202EE8BCB07D91C5DB3AA6F770F3E3A2F369FE84275F569CD9984DDAC5929887056D1D5E";
+        $this->assertEquals($expected, $signature);
+    }
+
 }
 

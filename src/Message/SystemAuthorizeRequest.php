@@ -8,6 +8,34 @@ namespace Omnipay\Paybox\Message;
 class SystemAuthorizeRequest extends AbstractRequest
 {
 
+    /**
+     * Transaction time in timezone format e.g 2011-02-28T11:01:50+01:00.
+     *
+     * @var string
+     */
+    protected $time;
+
+    /**
+     * Get time of the transaction.
+     *
+     * @return string
+     */
+    public function getTime()
+    {
+        return (!empty($this->time)) ? $this->time : date('c');
+    }
+
+    /**
+     * Setter for time (of transaction).
+     *
+     * @param string $time
+     *  Time in 'c' format - e.g 2011-02-28T11:01:50+01:00
+     */
+    public function setTime($time)
+    {
+        $this->time = $time;
+    }
+
     public function getData()
     {
         foreach ($this->getRequiredCoreFields() as $field) {
@@ -85,7 +113,7 @@ class SystemAuthorizeRequest extends AbstractRequest
             'PBX_CMD' => $this->getTransactionId(),
             'PBX_PORTEUR' => $this->getCard()->getEmail(),
             'PBX_RETOUR' => 'Mt:M;Ref:R;Auto:A;Erreur:E',
-            'PBX_TIME' => date("c"),
+            'PBX_TIME' => $this->getTime(),
         );
     }
 
