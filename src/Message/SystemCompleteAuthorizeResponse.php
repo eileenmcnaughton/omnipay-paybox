@@ -43,6 +43,11 @@ class SystemCompleteAuthorizeResponse extends AbstractResponse
 
     public function getTransactionReference()
     {
+        return isset($this->data['Ref']) ? $this->data['Ref'] : null;
+    }
+
+    public function getTransactionId()
+    {
         return isset($this->data['Id']) ? $this->data['Id'] : null;
     }
 
