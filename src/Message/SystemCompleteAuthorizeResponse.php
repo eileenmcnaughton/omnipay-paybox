@@ -66,9 +66,9 @@ class SystemCompleteAuthorizeResponse extends AbstractResponse
      * Verifies the validity of the signature.
      *
      * Function adapted from LexikPayboxBundle.
-     *
      * @return bool
-     * @throws InvalidRequestException
+     * @throws \Omnipay\Common\Exception\InvalidResponseException
+     * @throws \Omnipay\Paybox\Message\InvalidRequestException
      */
     public function verifySignature()
     {
