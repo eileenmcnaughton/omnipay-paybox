@@ -4,7 +4,7 @@
 
 
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
-processing library for PHP 5.3+. This package implements 2Checkout support for Omnipay.
+processing library for PHP 5.3+. This package implements Paybox support for omnipay.
 
 ## Installation
 
@@ -14,7 +14,7 @@ to your `composer.json` file:
 ```json
 {
     "require": {
-        "fuzion/omnipay-paybox": "~2.0"
+        "monosolutions/omnipay-paybox": "*"
     }
 }
 ```
@@ -29,7 +29,6 @@ And run composer to update your dependencies:
 The following gateways are provided by this package:
 
 * PayboxSystem
-* PayboxDirect
 
 For general usage instructions, please see the main [Omnipay](https://github.com/thephpleague/omnipay)
 repository.

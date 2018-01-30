@@ -7,7 +7,7 @@ namespace Omnipay\Paybox\Message;
  */
 class SystemAuthorizeRequest extends AbstractRequest
 {
-
+    protected $onlyAuthorize = true;
     /**
      * Transaction time in timezone format e.g 2011-02-28T11:01:50+01:00.
      *
@@ -43,18 +43,18 @@ class SystemAuthorizeRequest extends AbstractRequest
         }
         $this->validateCardFields();
         $data = $this->getBaseData() + $this->getTransactionData() + $this->getURLData();
+        if ($this->onlyAuthorize) {
+            $data['PBX_AUTOSEULE'] = 'O';
+        }
+
         $data['PBX_HMAC'] = $this->generateSignature($data);
+
         return $data;
     }
 
     public function sendData($data)
     {
-        return $this->response = new SystemResponse($this, $data, $this->getEndpoint());
-    }
-
-    protected function createResponse($data)
-    {
-        return $this->response = new SystemResponse($this, $data, $this->getEndpoint());
+        return $this->response = new SystemAuthorizeResponse($this, $data, $this->getEndpoint());
     }
 
     public function getSite()
@@ -89,32 +89,29 @@ class SystemAuthorizeRequest extends AbstractRequest
 
     public function getRequiredCoreFields()
     {
-        return array
-        (
+        return [
             'amount',
             'currency',
-        );
+        ];
     }
 
     public function getRequiredCardFields()
     {
-        return array
-        (
+        return [
             'email',
-        );
+        ];
     }
 
     public function getTransactionData()
     {
-        return array
-        (
+        return [
             'PBX_TOTAL' => $this->getAmountInteger(),
             'PBX_DEVISE' => $this->getCurrencyNumeric(),
             'PBX_CMD' => $this->getTransactionId(),
             'PBX_PORTEUR' => $this->getCard()->getEmail(),
-            'PBX_RETOUR' => 'Mt:M;Id:R;Ref:A;Erreur:E;sign:K',
+            'PBX_RETOUR' => 'Mt:M;Id:R;Ref:A;Erreur:E;sign:K;3d:G',
             'PBX_TIME' => $this->getTime(),
-        );
+        ];
     }
 
     /**
@@ -122,11 +119,11 @@ class SystemAuthorizeRequest extends AbstractRequest
      */
     public function getBaseData()
     {
-        return array(
+        return [
             'PBX_SITE' => $this->getSite(),
             'PBX_RANG' => $this->getRang(),
             'PBX_IDENTIFIANT' => $this->getIdentifiant(),
-        );
+        ];
     }
 
     /**
@@ -136,7 +133,7 @@ class SystemAuthorizeRequest extends AbstractRequest
      */
     public function getURLData()
     {
-        $data = array();
+        $data = [];
         if ($this->getNotifyUrl()) {
             $data['PBX_REPONDRE_A'] = urlencode($this->getNotifyUrl());
         }
@@ -146,6 +143,7 @@ class SystemAuthorizeRequest extends AbstractRequest
             $data['PBX_ANNULE'] = $this->getCancelUrl();
             $data['PBX_ATTENTE'] = $this->getReturnUrl();
         }
+
         return $data;
     }
 

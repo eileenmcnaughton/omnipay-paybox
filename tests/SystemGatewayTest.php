@@ -42,7 +42,7 @@ class SystemGatewayTest extends GatewayTestCase
 
     public function testPurchase()
     {
-        $request = $this->gateway->purchase(array('amount' => '10.00'));
+        $request = $this->gateway->purchase(['amount' => '10.00']);
 
         $this->assertInstanceOf('Omnipay\Paybox\Message\SystemPurchaseRequest', $request);
         $this->assertSame('10.00', $request->getAmount());
@@ -51,52 +51,41 @@ class SystemGatewayTest extends GatewayTestCase
 
     public function testPurchaseTestMode()
     {
-        $request = $this->gateway->purchase(array('amount' => '10.00', 'testMode' => true));
+        $request = $this->gateway->purchase(['amount' => '10.00', 'testMode' => true]);
 
         $this->assertInstanceOf('Omnipay\Paybox\Message\SystemPurchaseRequest', $request);
         $this->assertSame('10.00', $request->getAmount());
         $this->assertSame('https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi', $request->getEndpoint());
     }
 
+    public function testAuthorize()
+    {
+        $request = $this->gateway->authorize(['amount' => '10.00', 'testMode' => true]);
+
+        $this->assertInstanceOf('Omnipay\Paybox\Message\SystemAuthorizeRequest', $request);
+        $this->assertSame('10.00', $request->getAmount());
+        $this->assertSame('https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi', $request->getEndpoint());
+    }
+
     public function testCompletePurchase()
     {
-        $request = $this->gateway->completePurchase(array('amount' => '10.00'));
+        $request = $this->gateway->completePurchase(['amount' => '10.00']);
 
         $this->assertInstanceOf('Omnipay\Paybox\Message\SystemCompletePurchaseRequest', $request);
         $this->assertSame('10.00', $request->getAmount());
     }
-/*
-    public function testCompleteAuthorize()
-    {
-        $options = array(
-            'amount' => '10.00',
-            'transactionId' => '45',
-            'returnUrl' => 'https://www.example.com/return',
-        );
-        $signature = 'opPlzAadVvCor99yZ8oj2NHmE0eAxXkmCZ80C%2BYW8htpF7Wf6krYYFjc1pQnvYHcW7vp3ta3p8Gfh7gAaR6WDOnhe1Xzm39whk11%2BShieXbQCnEKXot4aGkpodxi1cHutXBhh1IBQOLgq1IVM%2BaV9PUeTI%2FGFruSDnA1TExDHZE%3D';
 
-        $this->getHttpRequest()->request->replace(
-            array(
-                'Mt' => 100,
-                'Id' => 45,
-                'Erreur' => '00114',
-                'sign' => $signature,
-            )
-        );
-
-        $response = $this->gateway->completeAuthorize($options)->send();
-
-        $this->assertFalse($response->isSuccessful());
-        $this->assertSame(45, $response->getTransactionReference());
-    }
-*/
     public function testPurchaseSend()
     {
-        $request = $this->gateway->purchase(array('amount' => '10.00', 'currency' => 'USD', 'card' => array(
-            'firstName' => 'Pokemon',
-            'lastName' => 'The second',
-            'email' => 'test@paybox.com',
-        )))->send();
+        $request = $this->gateway->purchase([
+            'amount' => '10.00',
+            'currency' => 'USD',
+            'card' => [
+                'firstName' => 'Pokemon',
+                'lastName' => 'The second',
+                'email' => 'test@paybox.com',
+            ],
+        ])->send();
 
         $this->assertInstanceOf('Omnipay\Paybox\Message\SystemResponse', $request);
         $this->assertFalse($request->isTransparentRedirect());
@@ -105,11 +94,15 @@ class SystemGatewayTest extends GatewayTestCase
 
     public function testPurchaseSendWithSiteData()
     {
-        $gateway = $this->gateway->purchase(array('amount' => '10.00', 'currency' => 'EUR', 'card' => array(
-            'firstName' => 'Pokemon',
-            'lastName' => 'The second',
-            'email' => 'test@paybox.com',
-        )));
+        $gateway = $this->gateway->purchase([
+            'amount' => '10.00',
+            'currency' => 'EUR',
+            'card' => [
+                'firstName' => 'Pokemon',
+                'lastName' => 'The second',
+                'email' => 'test@paybox.com',
+            ],
+        ]);
 
         $gateway->setRang($this->rang);
         $gateway->setSite($this->site);
@@ -121,11 +114,39 @@ class SystemGatewayTest extends GatewayTestCase
 
         $this->assertInstanceOf('Omnipay\Paybox\Message\SystemResponse', $request);
         $this->assertFalse($request->isTransparentRedirect());
-        $expected_url = "https://tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi?PBX_SITE=1999888&PBX_RANG=32";
-        $expected_url .= "&PBX_IDENTIFIANT=107904482&PBX_TOTAL=1000&PBX_DEVISE=978&PBX_CMD=3&PBX_PORTEUR=test%40paybox.com";
-        $expected_url .= "&PBX_RETOUR=Mt%3AM%3BId%3AR%3BRef%3AA%3BErreur%3AE%3Bsign%3AK&PBX_TIME=2014-12-09T22%3A37%3A34%2B00%3A00";
-        $hmac = '309CF65B9A4381B44DAC7D8979208FCC4E0F3E819A00E1C5602B419FD7E4C2389468E679F30522581752B8FD26A8816004B6A17EFCDD2BEAD8F16A26D092EA98';
-        $expected_url .= "&PBX_HMAC=" . $hmac;
-        $this->assertSame($expected_url, $request->getRedirectUrl());
+        $expectedUrl = "https://tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi?PBX_SITE=1999888&PBX_RANG=32&PBX_IDENTIFIANT=107904482&PBX_TOTAL=1000&PBX_DEVISE=978&PBX_CMD=3&PBX_PORTEUR=test%40paybox.com&PBX_RETOUR=Mt%3AM%3BId%3AR%3BRef%3AA%3BErreur%3AE%3Bsign%3AK%3B3d%3AG&PBX_TIME=2014-12-09T22%3A37%3A34%2B00%3A00&PBX_HMAC=9701A68D320E2BFD1A70DBB184E3C15001ABD460E87469B9C9B1E93CE6EB002FDC418443290FC6C32F5AEA5ABA757E369B126B8E45C006EAFF216F9AD881BC9F";
+        $this->assertSame($expectedUrl, $request->getRedirectUrl());
+        $data = $request->getData();
+        $this->assertArrayHasKey('PBX_RETOUR', $data);
+        $this->assertArrayNotHasKey('PBX_AUTOSEULE', $data);
+    }
+
+    public function testAuthorizeSendWithSiteData()
+    {
+        $gateway = $this->gateway->authorize([
+            'amount' => '10.00',
+            'currency' => 'EUR',
+            'card' => [
+                'firstName' => 'Pokemon',
+                'lastName' => 'The second',
+                'email' => 'test@paybox.com',
+            ],
+        ]);
+
+        $gateway->setRang($this->rang);
+        $gateway->setSite($this->site);
+        $gateway->setIdentifiant($this->identifiant);
+        $gateway->setTransactionID(3);
+        $gateway->setTime("2014-12-09T22:37:34+00:00");
+        $gateway->setKey($this->key);
+        $request = $gateway->send();
+
+        $this->assertInstanceOf('Omnipay\Paybox\Message\SystemAuthorizeResponse', $request);
+        $this->assertFalse($request->isTransparentRedirect());
+        $expectedUrl = "https://tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi";
+        $this->assertSame($expectedUrl, $request->getRedirectUrl());
+        $data = $request->getData();
+        $this->assertArrayHasKey('PBX_RETOUR', $data);
+        $this->assertArrayHasKey('PBX_AUTOSEULE', $data);
     }
 }

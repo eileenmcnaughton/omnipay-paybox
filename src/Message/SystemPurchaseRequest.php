@@ -7,8 +7,15 @@ namespace Omnipay\Paybox\Message;
  */
 class SystemPurchaseRequest extends SystemAuthorizeRequest
 {
+    protected $onlyAuthorize = false;
+
     public function getTransactionType()
     {
         return '00003';
+    }
+
+    public function sendData($data)
+    {
+        return $this->response = new SystemResponse($this, $data, $this->getEndpoint());
     }
 }
