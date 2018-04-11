@@ -14,6 +14,7 @@ class SystemAuthorizeRequest extends AbstractRequest
      * @var string
      */
     protected $time;
+    protected $onlyAuthorize = true;
 
     /**
      * Get time of the transaction.
@@ -43,6 +44,9 @@ class SystemAuthorizeRequest extends AbstractRequest
         }
         $this->validateCardFields();
         $data = $this->getBaseData() + $this->getTransactionData() + $this->getURLData();
+        if ($this->onlyAuthorize) {
+            $data['PBX_AUTOSEULE'] = 'O';
+        }
         $data['PBX_HMAC'] = $this->generateSignature($data);
         return $data;
     }
