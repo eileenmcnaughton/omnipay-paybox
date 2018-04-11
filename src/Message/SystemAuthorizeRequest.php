@@ -52,9 +52,12 @@ class SystemAuthorizeRequest extends AbstractRequest
         return $data;
     }
 
-    public function sendData($data)
-    {
-        return $this->response = new SystemAuthorizeResponse($this, $data, $this->getEndpoint());
+    public function sendData($data) {
+        return $this->response = new SystemResponse($this, $data, $this->getEndpoint());
+    }
+
+    protected function createResponse($data) {
+        return $this->response = new SystemResponse($this, $data, $this->getEndpoint());
     }
 
     public function getSite()
